@@ -15,15 +15,15 @@ class Convert:
         
         parts = raw_input.split()
         
-        self.min = parts[0].split("-")[0]
-        self.max = parts[0].split("-")[1]
+        self.positionA = parts[0].split("-")[0]
+        self.positionB = parts[0].split("-")[1]
         self.required_char = parts[1][:-1]
         self.value = parts[2]
     
     def to_dict(self):
         return {
-            "min" : int(self.min),
-            "max" : int(self.max),
+            "positionA" : int(self.positionA),
+            "positionB" : int(self.positionB),
             "required_char" : self.required_char,
             "value" : self.value,
         }
@@ -38,9 +38,11 @@ for i in ReadData().as_raw():
 num_valid_passwords = 0
 
 for i in passwords:
+    positionA = bool(i['value'][i['positionA']-1] is i['required_char'])
+    positionB = bool(i['value'][i['positionB']-1] is i['required_char'])
     
-    if i['value'].count(i['required_char']) in range(i['min'], i['max']+1):
-        num_valid_passwords += 1
+    if positionA ^ positionB:
+        num_valid_passwords += 1    
     
 print(num_valid_passwords)
     
