@@ -33,7 +33,7 @@ TREE = '#'
 visited_coordinates = []
 x, y = 0, 0
 
-for i in forest:
+for _ in range(0, len(forest)):
     
     visited_coordinates.append([x,y])
     x += X_MOVEMENTS
