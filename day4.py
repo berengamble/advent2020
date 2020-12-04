@@ -31,7 +31,6 @@ class PassportValidator:
         for i in self.passport_data:
             filled = set(k for k in i.keys())
             if self.required.issubset(filled):
-                print(filled)
                 self.valid_passports += 1
 
         return self.valid_passports
