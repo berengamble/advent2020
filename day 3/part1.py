@@ -17,10 +17,6 @@ class Convert:
     def to_list_of_lists(self):
         return self.raw_input.splitlines()
 
-class Forest:
-    def __init__(self, pattern):
-        self.pattern = pattern
-
 raw_data = ReadData().as_raw()
 forest = Convert(raw_data).to_list_of_lists()
 forest_width = len(forest[0])
