@@ -4,24 +4,27 @@ class SeatNumberParser:
 
     def __init__(self):
         self.seat_ids = []
-        self._seat_ids_list()
 
     def _load_data(self):
         return DataReader(day=5).as_raw()
 
-    def _generate_id(self, seat):
-        row    = int(seat[0:7].replace('F', '0').replace('B', '1'), 2)
-        column = int(seat[7:10].replace('L', '0').replace('R', '1'), 2)
-        return row * 8 + column
+    def _generate_id(self, seat):        
+        return int(seat.replace('L', '0').replace('F', '0').replace('B', '1').replace('R', '1'), 2)
             
-    def _seat_ids_list(self):
+    def get_id_list(self):
         for i in self._load_data().splitlines():
             self.seat_ids.append(self._generate_id(i))
+        return self.seat_ids
 
-    def get_highest_id(self):
+class SeatIds:
+
+    def __init__(self, seat_ids):
+        self.seat_ids = seat_ids
+
+    def get_highest(self):
         return max(self.seat_ids)
 
-    def find_my_seat_id(self):
+    def find_my_seat(self):
         self.seat_ids.sort()
         missing = set(
                 range(
@@ -30,8 +33,9 @@ class SeatNumberParser:
                 )) - set(self.seat_ids)
         return missing.pop()
 
+data = SeatNumberParser().get_id_list()
 #Part 1
-print(SeatNumberParser().get_highest_id())
+print(SeatIds(data).get_highest())
 #Part 2
-print(SeatNumberParser().find_my_seat_id())
+print(SeatIds(data).find_my_seat())
 
