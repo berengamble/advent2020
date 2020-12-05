@@ -17,7 +17,6 @@ class SeatNumberParser:
     def _seat_ids_list(self):
         for i in self._load_data().splitlines():
             self.seat_ids.append(self._generate_id(i))
-        return self.seat_ids
 
     def get_highest_id(self):
         return max(self.seat_ids)
