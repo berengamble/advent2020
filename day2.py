@@ -1,3 +1,41 @@
+from DataReader import DataReader
+
+class PasswordParser:
+    def __init__(self, raw_input):
+        
+        parts = raw_input.split()
+        
+        self.min = parts[0].split("-")[0]
+        self.max = parts[0].split("-")[1]
+        self.required_char = parts[1][:-1]
+        self.value = parts[2]
+    
+    def to_dict(self):
+        return {
+            "min" : int(self.min),
+            "max" : int(self.max),
+            "required_char" : self.required_char,
+            "value" : self.value,
+        }
+
+passwords = []
+
+data = DataReader(day=2).as_raw()
+
+for i in data:
+    passwords.append(
+        PasswordParser(i).to_dict()
+    )
+
+num_valid_passwords = 0
+
+for i in passwords:
+    
+    if i['value'].count(i['required_char']) in range(i['min'], i['max']+1):
+        num_valid_passwords += 1
+    
+print(num_valid_passwords)
+    
 class ReadData:
     def __init__(self):
         self.raw_data = None
@@ -10,7 +48,7 @@ class ReadData:
     def as_raw(self):
         return self.raw_data
 
-class Convert:
+class PasswordParser:
     def __init__(self, raw_input):
         
         parts = raw_input.split()
@@ -32,7 +70,7 @@ passwords = []
 
 for i in ReadData().as_raw():
     passwords.append(
-        Convert(i).to_dict()
+        PasswordParser(i).to_dict()
     )
 
 num_valid_passwords = 0

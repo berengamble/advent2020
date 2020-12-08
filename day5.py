@@ -32,10 +32,38 @@ class SeatIds:
                     self.seat_ids[-1]+1
                 )) - set(self.seat_ids)
         return missing.pop()
+    
+    def find_my_seat2(self):
+        summed_values = sum(x for x in range(min(self.seat_ids), max(self.seat_ids)+1))
+        missing_number = summed_values - sum(x for x in self.seat_ids)
+        return missing_number
+    
+    def find_my_seat3(self):
+        
+        first_loop = True
+        for k, v in enumerate(self.seat_ids):
+            if first_loop:
+                if v > self.seat_ids[k+1]:
+                    higher = v
+                    lower = self.seat_ids[k+1]
+                else:
+                    higher = self.seat_ids[k+1]
+                    lower = v
+
+                first_loop = False
+                continue
+            if v > lower and v < higher:
+                lower = v
+            if v < higher and :
+                higher = v
+        # print(higher)
+        # print(lower)
+        print(lower - higher)
+
 
 data = SeatNumberParser().get_id_list()
 #Part 1
-print(SeatIds(data).get_highest())
+#print(SeatIds(data).get_highest()) # 714 - correct answer
 #Part 2
-print(SeatIds(data).find_my_seat())
+print(SeatIds(data).find_my_seat3())
 
